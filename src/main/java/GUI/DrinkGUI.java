@@ -1,5 +1,8 @@
+package GUI;
+//import SQL.JDBCUtil;
 
-//import JDBC.JDBCUtil;
+import Drink.Drink;
+import SQL.DrinkManagerDAO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -20,7 +23,7 @@ public class DrinkGUI extends JFrame{
 	private int num_Drinks = 100;
 	private int currentSize = 0;
 	
-	private DrinkManagerDAO manager = new DrinkManagerDAO(); //DATABASE OBJECT ACCESSOR	
+	private DrinkManagerDAO manager = new DrinkManagerDAO(); //DATABASE OBJECT ACCESSOR
 	private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
 	private Drink[] currentDrinks = new Drink[num_Drinks]; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
 	
@@ -69,10 +72,10 @@ public class DrinkGUI extends JFrame{
  	private	JButton View = new JButton("View Drinks");
  	private	JButton Search = new JButton("Search For Drinks");
  	private	JButton Rate = new JButton("Rate Drinks");
- 	private	JButton Create = new JButton("Create a Drink");
+ 	private	JButton Create = new JButton("Create a Drink.Drink");
  	private	JButton findButton = new JButton("Search");
  	private	JButton Back = new JButton("Back");
- 	private JButton Next = new JButton("Next Drink");
+ 	private JButton Next = new JButton("Next Drink.Drink");
 
  	
  	//ADD DRINK BUTTONS
@@ -396,7 +399,7 @@ public class DrinkGUI extends JFrame{
 		catalogueFrame = new JFrame();//NEW FRAME TO DISPLAY DRINKS
 		catalogueFrame.setLayout(new FlowLayout());
 		catalogueFrame.setIconImage(icon);
-		catalogueFrame.setTitle("Drink Catalogue");
+		catalogueFrame.setTitle("Drink.Drink Catalogue");
 
 
 		JPanel catalogue = new JPanel(new GridBagLayout());//panel to display list of drinks
@@ -761,7 +764,7 @@ public class DrinkGUI extends JFrame{
          
         // set border for the panel
         creating.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Create a Drink"));
+                BorderFactory.createEtchedBorder(), "Create a Drink.Drink"));
          
         // add the panel to this frame
         add(creating);
@@ -805,7 +808,7 @@ public class DrinkGUI extends JFrame{
 		displayDrinkFrame = new JFrame();//NEW FRAME TO DISPLAY CURRENT DRINK
 		displayDrinkFrame.setLayout(new FlowLayout());
 		displayDrinkFrame.setIconImage(icon);
-		displayDrinkFrame.setTitle("Drink Recipe");
+		displayDrinkFrame.setTitle("Drink.Drink Recipe");
 
 		
 		JPanel displayCocktail = new JPanel(new GridBagLayout());//panel to display list of drinks
@@ -916,7 +919,7 @@ public class DrinkGUI extends JFrame{
 		//makes Table to Display all the drinks
 	       drinkTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
 	       drinkTable.setFillsViewportHeight(true);
-	       defaultTableModel.addColumn("Drink Name");
+	       defaultTableModel.addColumn("Drink.Drink Name");
 	       defaultTableModel.addColumn("Ingredients");    
 	       
 	       //sets the width of each column
@@ -959,13 +962,13 @@ public class DrinkGUI extends JFrame{
 	//ERROR MESSAGE IF DRINK WAS NOT ADDED TO DATABASE
 	public void drinkNotAdded() {
 		JFrame dNAFrame = new JFrame();
-        JOptionPane.showMessageDialog(dNAFrame, "Drink Not Added!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(dNAFrame, "Drink.Drink Not Added!", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	//SUCCESS MESSAGE IF DRINK WAS ADDED TO DATABASE
 	public void drinkAdded() {
 		JFrame dAFrame = new JFrame();
-        JOptionPane.showMessageDialog(dAFrame, "Drink Succesfully Added to Database!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(dAFrame, "Drink.Drink Succesfully Added to Database!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	//ERROR MESSAGE IF RATING WAS NOT ADDED TO DATABASE

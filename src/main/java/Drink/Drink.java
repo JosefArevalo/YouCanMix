@@ -1,3 +1,4 @@
+package Drink;
 
 public class Drink {
     private String drinkName;

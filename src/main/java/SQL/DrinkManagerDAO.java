@@ -1,4 +1,7 @@
-import JDBC.JDBCUtil;
+package SQL;
+
+import Drink.Drink;
+import SQL.JDBCUtil;
 
 import java.sql.*;
 
@@ -8,12 +11,69 @@ public class DrinkManagerDAO
 	private int num_Drinks = 100;//MAX NUM OF DRINKS
 	int validation = 0;//VALIDATES IF DRINK HAS BEEN ADDED TO DATABASE
 	private Drink[] Drinks = new Drink[num_Drinks];//LIST OF DRINK CURRENTLY WORKING WITH
-	//private Drink currentDrink = new Drink();//CURRENT DRINK WORKING WITH
+	//private Drink.Drink currentDrink = new Drink.Drink();//CURRENT DRINK WORKING WITH
 	
 	private Connection conn = null;
 
 	//DEFAULT CONSTRUCTOR
-	public DrinkManagerDAO() {};
+	public DrinkManagerDAO() {
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = JDBCUtil.getConnection();
+
+            // create sql string
+            String drinkTableName = "Drinks";
+            //String ingredientsTableName = "Ingredients";
+
+            String SQL = "create table if not exists" + drinkTableName + " ( " +
+                    "Drink_Name varchar(30) not null, " +
+                    "Ingredients varchar(100) not null, " +
+                    "Quantity varchar(100) not null," +
+                    "Rating integer not null, " +
+                    "primary key(Drink_Name))";
+
+            /*String SQLIngredientsTable = "create table " + ingredientsTableName + " ( " +
+            		"drink_name varchar(30) not null, " +
+                    "ingredients varchar(30) not null, " +
+            		"quantity varchar(30) not null";*/
+
+            boolean drinksTableExists = tableExistsSQL(conn, drinkTableName);
+            //boolean ingredientsTableExists = tableExistsSQL(conn, ingredientsTableName);
+
+            Statement stmt = null;
+
+            if (!drinksTableExists){
+                try {
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate(SQL);
+                    //stmt.executeUpdate(SQLIngredientsTable);
+                }
+                finally {
+                    JDBCUtil.closeStatement(stmt);
+                }
+                //Commit the transaction
+                JDBCUtil.commit(conn);
+
+                System.out.println("Drinks table created");
+                //System.out.println("Ingredients table created");
+
+            }
+            else{
+                System.out.println("Drinks table already created");
+                //System.out.println("Ingredients table already created");
+
+            }
+
+        }//end try
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            JDBCUtil.closeConnection(conn);
+        }
+    }
+};
 	
     //CONNECTS AND INSERTS DRINK INTO THE DATABASE
     public boolean insertDrink(Drink currentDrink) throws ClassNotFoundException

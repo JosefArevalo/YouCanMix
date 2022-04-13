@@ -1,5 +1,5 @@
 
-package JDBC;
+package SQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,9 +13,9 @@ public class JDBCUtil
     public static Connection getConnection() throws SQLException, ClassNotFoundException
     {
         // Construct the connection URL
-        String dbURL = "jdbc:mysql://localhost:3306/youcanmix";
-        String userId = "Mixer";
-        String password = "Mixer1";
+        String dbURL = "";
+        String userId = "";
+        String password = "";
 
 
         Class.forName("com.mysql.cj.jdbc.Driver");
