@@ -1,187 +1,91 @@
 package SQL;
 
 import Drink.Drink;
-import SQL.JDBCUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DrinkManagerDAO
 {
-	private int currentSize = 0;//NUM OF DRINKS CURRENTLY WORKING WITH
-	private int num_Drinks = 100;//MAX NUM OF DRINKS
-	int validation = 0;//VALIDATES IF DRINK HAS BEEN ADDED TO DATABASE
-	private Drink[] Drinks = new Drink[num_Drinks];//LIST OF DRINK CURRENTLY WORKING WITH
-	//private Drink.Drink currentDrink = new Drink.Drink();//CURRENT DRINK WORKING WITH
-	
 	private Connection conn = null;
 
-	//DEFAULT CONSTRUCTOR
-	public DrinkManagerDAO() {
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = JDBCUtil.getConnection();
+	public DrinkManagerDAO() throws SQLException {
+        String dbURL = "";
+        String userId = "";
+        String password = "";
 
-            // create sql string
-            String drinkTableName = "Drinks";
-            //String ingredientsTableName = "Ingredients";
+        this.conn = DriverManager.getConnection(dbURL, userId, password);
+        this.createTables();
+  }
 
-            String SQL = "create table if not exists" + drinkTableName + " ( " +
-                    "Drink_Name varchar(30) not null, " +
-                    "Ingredients varchar(100) not null, " +
-                    "Quantity varchar(100) not null," +
-                    "Rating integer not null, " +
-                    "primary key(Drink_Name))";
+    public void createTables() throws SQLException {
+        String create_table_query = "create table if not exists drinks ( " +
+                "Drink_Name varchar(30) not null, " +
+                "Ingredients varchar(100) not null, " +
+                "Quantity varchar(100) not null," +
+                "Rating integer not null, " +
+                "primary key(Drink_Name))";
 
-            /*String SQLIngredientsTable = "create table " + ingredientsTableName + " ( " +
-            		"drink_name varchar(30) not null, " +
-                    "ingredients varchar(30) not null, " +
-            		"quantity varchar(30) not null";*/
-
-            boolean drinksTableExists = tableExistsSQL(conn, drinkTableName);
-            //boolean ingredientsTableExists = tableExistsSQL(conn, ingredientsTableName);
-
-            Statement stmt = null;
-
-            if (!drinksTableExists){
-                try {
-                    stmt = conn.createStatement();
-                    stmt.executeUpdate(SQL);
-                    //stmt.executeUpdate(SQLIngredientsTable);
-                }
-                finally {
-                    JDBCUtil.closeStatement(stmt);
-                }
-                //Commit the transaction
-                JDBCUtil.commit(conn);
-
-                System.out.println("Drinks table created");
-                //System.out.println("Ingredients table created");
-
-            }
-            else{
-                System.out.println("Drinks table already created");
-                //System.out.println("Ingredients table already created");
-
-            }
-
-        }//end try
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            JDBCUtil.closeConnection(conn);
-        }
+        Statement stmt = this.conn.createStatement();
+        stmt.executeUpdate(create_table_query);
     }
-};
-	
+
     //CONNECTS AND INSERTS DRINK INTO THE DATABASE
-    public boolean insertDrink(Drink currentDrink) throws ClassNotFoundException
-    { 
-        try {
-        	
-        	//SETS UP AND CONNECTS TO THE DATBASE
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = JDBCUtil.getConnection();
-            
-            //MAKES ENTRY PROMPT
-            String SQL = "insert into drinks values (?,?,?,?);";
-            PreparedStatement stmt = conn.prepareStatement(SQL);
+    public void insertDrink(Drink currentDrink) throws SQLException
+    {
+        //MAKES ENTRY PROMPT
+        String SQL = "insert into drinks values (?,?,?,?);";
+        PreparedStatement stmt = conn.prepareStatement(SQL);
 
-            //ENTERS DATA INTO PROPER COLUMN
-            stmt.setString(1, currentDrink.getDrinkName());
-            stmt.setString(2, currentDrink.getIngredients());
-            stmt.setString(3, currentDrink.getQuantities());
-            stmt.setInt(4, currentDrink.getRating());
-            
-            //PUSHS/CHECKS THAT DATABASE HAS BEEN UPDATED
-            validation = stmt.executeUpdate();
-            conn.commit();
+        //ENTERS DATA INTO PROPER COLUMN
+        stmt.setString(1, currentDrink.getDrinkName());
+        stmt.setString(2, currentDrink.getIngredients());
+        stmt.setString(3, currentDrink.getQuantities());
+        stmt.setInt(4, currentDrink.getRating());
 
-        }
-        catch (SQLException e)//CATCHES ERROR
-        {
-            System.out.println(e.getMessage());
-            JDBCUtil.rollback(conn);
-        }
-        finally {//CLOSES THE CURRENT CONNECTION WITH THE DATABASE
-            JDBCUtil.closeConnection(conn);
-        }
-        
-        if(validation > 0)return true;//DRINK WAS ADDED TO DATABASE
-        
-		return false;//DRINK WASN'T ADDED TO DATABASE
+        //PUSHS/CHECKS THAT DATABASE HAS BEEN UPDATED
+        stmt.executeUpdate();
     }
     
-    public boolean insertRate(Drink currentDrink, int r) throws ClassNotFoundException{
-    	try {
-        	
-        	//SETS UP AND CONNECTS TO THE DATBASE
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = JDBCUtil.getConnection();
-            
-            //MAKES ENTRY PROMPT
-            String SQL = "update Drinks set Rating = ? where Drink_Name = ?";
-            PreparedStatement stmt = conn.prepareStatement(SQL);
+    public void insertRate(Drink currentDrink, int r) throws SQLException {
+        //MAKES ENTRY PROMPT
+        String SQL = "update drinks set Rating = ? where Drink_Name = ?";
+        PreparedStatement stmt = this.conn.prepareStatement(SQL);
 
-            //ENTERS DATA INTO PROPER COLUMN
-            stmt.setInt(1, r);
-            stmt.setString(2, currentDrink.getDrinkName());
-            
-            //PUSHS/CHECKS THAT DATABASE HAS BEEN UPDATED
-            validation = stmt.executeUpdate();
-            conn.commit();
+        //ENTERS DATA INTO PROPER COLUMN
+        stmt.setInt(1, r);
+        stmt.setString(2, currentDrink.getDrinkName());
 
-        }
-        catch (SQLException e)//CATCHES ERROR
-        {
-            System.out.println(e.getMessage());
-            JDBCUtil.rollback(conn);
-        }
-        finally {//CLOSES THE CURRENT CONNECTION WITH THE DATABASE
-            JDBCUtil.closeConnection(conn);
-        }
-
-    	if(validation > 0)return true;//RATING WAS ADDED TO DATABASE
-        
-		return false;//RATING WASN'T ADDED TO DATABASE
+        //PUSHS/CHECKS THAT DATABASE HAS BEEN UPDATED
+        stmt.executeUpdate();
     }
     
     //GETS DRINKS FROM THE DATABASE
-    public Drink[] getDrinks(String ES)throws ClassNotFoundException{
-    	currentSize = 0;
+    public ArrayList<Drink> getDrinks(String Parameter) throws SQLException {
+        ArrayList<Drink> drinks = new ArrayList<>();
     	try {
-    		
-    		//SETS UP AND CONNECTS TO THE DATBASE
-    		conn = JDBCUtil.getConnection();
-	        ResultSet rs;
-	    	Statement stmt = conn.createStatement();
-	    	rs = stmt.executeQuery(ES);
-	    	
-	    	while ( rs.next() ) {//WHILE THERE IS ROWS TO BE READ
-	    		 Drinks[currentSize] = new Drink(rs.getString("Drink_Name"),
+	    	Statement stmt = this.conn.createStatement();
+
+            ResultSet rs;
+            if (Parameter == null) {
+                rs = stmt.executeQuery("SELECT * FROM drinks");
+            }
+            else {
+                rs = stmt.executeQuery("SELECT * FROM drinks WHERE Ingredients LIKE \"%" +
+                        Parameter +"%\" or Drink_Name LIKE \"%" + Parameter +"%\"");
+            }
+
+	    	while ( rs.next() ) {
+	    		 Drink d = new Drink(rs.getString("Drink_Name"),
 	    				 rs.getString("Ingredients"), rs.getString("Quantity"),
 	    				 rs.getInt("Rating"));
-	    		 currentSize++;
+                 drinks.add(d);
 	    	}
-       	
     	}
-    	catch (SQLException e) {//CATCHES ERROR
+    	catch (SQLException e) {
     		e.printStackTrace();
     	}
-    	finally {//CLOSES THE CURRENT CONNECTION WITH THE DATABASE
-            JDBCUtil.closeConnection(conn);
-        }
 
-    	return Drinks;//RETURNS ARRAY FILLED WITH DRINKS
+    	return drinks;
     }
-    
-    public int getCurrentSize() {//RETURNS THE SIZE OF THE DRINK ARRAY
-    	return this.currentSize;
-    }
-    
-    public int getNum_Drinks() {//RETURNS THE SIZE OF THE DRINK ARRAY
-    	return this.num_Drinks;
-    }
-    
 }

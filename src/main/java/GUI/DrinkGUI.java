@@ -12,6 +12,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 //import java.io.*;
 //import java.util.*;
 //import java.sql.*;
@@ -23,9 +25,9 @@ public class DrinkGUI extends JFrame{
 	private int num_Drinks = 100;
 	private int currentSize = 0;
 	
-	private DrinkManagerDAO manager = new DrinkManagerDAO(); //DATABASE OBJECT ACCESSOR
+	private DrinkManagerDAO manager; //DATABASE OBJECT ACCESSOR
 	private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
-	private Drink[] currentDrinks = new Drink[num_Drinks]; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
+	private ArrayList<Drink> currentDrinks; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
 	
 	
 	private JFrame catalogueFrame = new JFrame(); //VIEW DRINKS FRAME
@@ -90,6 +92,14 @@ public class DrinkGUI extends JFrame{
 	public DrinkGUI() {
 		// displays YouCanMix title on every window
 		super("YouCanMix");
+
+		try {
+			this.manager = new DrinkManagerDAO();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setIconImage(icon);
@@ -140,10 +150,8 @@ public class DrinkGUI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				try {
-			    	currentDrinks = manager.getDrinks("SELECT * FROM Drinks");
-			    	//System.out.println("TESTER: " + currentDrinks[0].getDrinkName());
-					
-				} catch (ClassNotFoundException e) {
+			    	currentDrinks = manager.getDrinks(null);
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				fillTable();
@@ -196,9 +204,8 @@ public class DrinkGUI extends JFrame{
 				
 				Parameter = findTextField.getText();
 				try {
-					currentDrinks = manager.getDrinks("SELECT * FROM Drinks WHERE Ingredients LIKE \"%" +
-							Parameter +"%\" or Drink_Name LIKE \"%" + Parameter +"%\"");
-				} catch (ClassNotFoundException e) {
+					currentDrinks = manager.getDrinks(Parameter);
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				findTextField.setText(null);
@@ -229,6 +236,7 @@ public class DrinkGUI extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				rateDrinkFrame.removeAll();
 				rateDrinkFrame.setVisible(false);
+				/*
 				x++;
 				if (x <= manager.getCurrentSize()) {
 					ratingSelection();
@@ -238,7 +246,7 @@ public class DrinkGUI extends JFrame{
 					noDrinkError();
 					x = 1;
 					rateDrinks();
-				}
+				}*/
 			}
 		}); 
 		
@@ -275,16 +283,13 @@ public class DrinkGUI extends JFrame{
 					
 					//CONNECTS TO THE DATABASE AND INSERTS NEW DRINK INTO IT
 					//RETURNS IF IT WAS ADDED OR NOT
-					success = manager.insertDrink(currentDrink);
-					
-				} catch (ClassNotFoundException e) {//CATCHES ERROR
+					manager.insertDrink(currentDrink);
+					drinkAdded();
+				} catch (SQLException e) {//CATCHES ERROR
+					drinkNotAdded();
 					e.printStackTrace();
+
 				}
-		        
-		        if(success) {//IF DRINK WAS SUCCESSFULLY ADDED
-		        	drinkAdded();
-		        }
-		        else drinkNotAdded();// IF DRINK WAS NOT ADDED
 		        
 		        //clears out ingredient, quantity and cocktail name text box
 		        tIngredient.setText(null);
@@ -563,7 +568,7 @@ public class DrinkGUI extends JFrame{
         constraints.insets = new Insets(10, 10, 10, 10);
 		
         JLabel title = new JLabel("Cocktail Name:  " + 
-        		currentDrinks[x-1].getDrinkName() + "    Rate: ");
+        		currentDrinks.get(x-1).getDrinkName() + "    Rate: ");
         constraints.gridx = 0;
         constraints.gridy = 0;
         RatingPanel.add(title, constraints);
@@ -578,14 +583,12 @@ public class DrinkGUI extends JFrame{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-					success = manager.insertRate(currentDrinks[x-1], 1);
-				} catch (ClassNotFoundException e) {
+					manager.insertRate(currentDrinks.get(x-1), 1);
+					rateAdded();
+				} catch (SQLException e) {
+					rateNotAdded();
 					e.printStackTrace();
 				}
-        		if(success) {//IF RATING WAS SUCCESSFULLY ADDED
-		        	rateAdded();
-		        }
-		        else rateNotAdded();// IF RATING WAS NOT ADDED
         	}
 				
         });
@@ -600,14 +603,12 @@ public class DrinkGUI extends JFrame{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			success = manager.insertRate(currentDrinks[x-1], 2);
-				} catch (ClassNotFoundException e) {
+        			manager.insertRate(currentDrinks.get(x-1), 2);
+					rateAdded();
+				} catch (SQLException e) {
+					rateNotAdded();
 					e.printStackTrace();
 				}
-        		if(success) {//IF RATING WAS SUCCESSFULLY ADDED
-		        	rateAdded();
-		        }
-		        else rateNotAdded();// IF RATING WAS NOT ADDED
         	}
         	
         });
@@ -622,14 +623,12 @@ public class DrinkGUI extends JFrame{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			success = manager.insertRate(currentDrinks[x-1], 3);
-				} catch (ClassNotFoundException e) {
+        			manager.insertRate(currentDrinks.get(x-1), 3);
+					rateAdded();
+				} catch (SQLException e) {
+					rateNotAdded();
 					e.printStackTrace();
 				}
-        		if(success) {//IF RATING WAS SUCCESSFULLY ADDED
-		        	rateAdded();
-		        }
-		        else rateNotAdded();// IF RATING WAS NOT ADDED
         	}
 				
         });
@@ -643,17 +642,14 @@ public class DrinkGUI extends JFrame{
         four.addActionListener(new ActionListener() {//WHEN FOUR STAR IS PRESSED
         	@Override
         	public void actionPerformed(ActionEvent event) {
-        		try {
-        			success = manager.insertRate(currentDrinks[x-1], 4);
-				} catch (ClassNotFoundException e) {
+				try {
+					manager.insertRate(currentDrinks.get(x - 1), 4);
+					rateAdded();
+				} catch (SQLException e) {
+					rateNotAdded();
 					e.printStackTrace();
 				}
-        		if(success) {//IF RATING WAS SUCCESSFULLY ADDED
-		        	rateAdded();
-		        }
-		        else rateNotAdded();// IF RATING WAS NOT ADDED
-        	}
-				
+			}
         });
         
         
@@ -666,14 +662,12 @@ public class DrinkGUI extends JFrame{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			success = manager.insertRate(currentDrinks[x-1], 5);
-				} catch (ClassNotFoundException e) {
+        			manager.insertRate(currentDrinks.get(x-1), 5);
+					rateAdded();
+				} catch (SQLException e) {
+					rateNotAdded();
 					e.printStackTrace();
 				}  
-        		if(success) {//IF RATING WAS SUCCESSFULLY ADDED
-		        	rateAdded();
-		        }
-		        else rateNotAdded();// IF RATING WAS NOT ADDED
         	}
 				
         });
@@ -688,15 +682,15 @@ public class DrinkGUI extends JFrame{
 	
 	//FILLS THE JTABLE THAT HAS A COLUMN FOR DRINK NAME AND INGREDIENTS 
 	public void fillTable() {
-		
-    	int num = 0;
-    	currentSize = manager.getCurrentSize();//NUM OF DRINKS BEING PUT INTO TABLE 
-    	while(num < currentSize ) {// WHILE THERE ARE DRINKS IN THE ARRAY
-		 defaultTableModel.addRow(new Object[]{currentDrinks[num].getDrinkName(), 
-				 currentDrinks[num].getIngredients()});
-         num++;
-    	}
-		if(currentSize == 0)noDrinkError();//NO DRINKS MATCHED SEARCH	
+		if (this.currentDrinks.isEmpty()) {
+			noDrinkError();
+		}
+		else {
+			for (Drink d : this.currentDrinks) {
+				defaultTableModel.addRow(new Object[]{d.getDrinkName(),
+						d.getIngredients()});
+			}
+		}
 	}
 
 	//interface for user to create a drink
@@ -817,12 +811,13 @@ public class DrinkGUI extends JFrame{
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 2, 10, 2);       
         
-        //ADDS INGREDIENTS AND QUANTITIES TO RESPECTIVE LISTS 
-        currentIngredient = currentDrinks[s].getIngredients().split(",");
-        currentQuantity = currentDrinks[s].getQuantities().split(",");    
+        //ADDS INGREDIENTS AND QUANTITIES TO RESPECTIVE LISTS
+		Drink drink = currentDrinks.get(s);
+        currentIngredient = drink.getIngredients().split(",");
+        currentQuantity = drink.getQuantities().split(",");
 
         //LABEL THAT DISPLAYS THE CURRENT COCKTAIL NAME
-        JLabel cocktailName = new JLabel("Cocktail Name: " + currentDrinks[s].getDrinkName());
+        JLabel cocktailName = new JLabel("Cocktail Name: " + drink.getDrinkName());
         
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -898,7 +893,7 @@ public class DrinkGUI extends JFrame{
         //CREATES AND ADDS APPROPRIATE RATING ICON LABEL TO PANEL
         for(int x = 1; x <= 5; x++) {
         	JLabel Rate = new JLabel();
-        	if(x <= currentDrinks[s].getRating()) {
+        	if(x <= currentDrinks.get(s).getRating()) {
         		Rate.setIcon(new ImageIcon(star));
            		constraints.gridx = x;
            		rate.add(Rate);
