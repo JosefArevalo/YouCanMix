@@ -5,27 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67995133-4cce-4b92-8ab7-23bb9dc018fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_11_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_28.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/youcanmix.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/NoStar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/Star.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/icon.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/DrinkGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/DrinkGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/DrinkManagerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/DrinkManagerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/JDBCUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/JDBCUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_11_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_28.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouCanMix.iml" beforeDir="false" afterPath="$PROJECT_DIR$/YouCanMix.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Drink/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Drink/Drink.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,10 +44,12 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../musicbot-rs" />
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="YouCanMix" />
       <extension name="net.ashald.envfile">
@@ -85,6 +88,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

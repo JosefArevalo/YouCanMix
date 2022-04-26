@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="youcanmix" />
+        <module name="YouCanMix" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="youcanmix" target="17" />
+      <module name="YouCanMix" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
