@@ -10,9 +10,9 @@ public class DrinkManagerDAO
 	private Connection conn = null;
 
 	public DrinkManagerDAO() throws SQLException {
-        String dbURL = "";
-        String userId = "";
-        String password = "";
+        String dbURL = "jdbc:mysql://localhost:3306/youcanmix";
+        String userId = "Mixer";
+        String password = "Mixer1";
 
         this.conn = DriverManager.getConnection(dbURL, userId, password);
         this.createTables();
