@@ -1,4 +1,4 @@
-package Drink;
+package main.java.Drink;
 
 public class Drink {
     private final String drinkName;

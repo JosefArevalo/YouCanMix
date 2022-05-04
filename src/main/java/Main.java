@@ -1,6 +1,9 @@
+package main.java;
+
 import javax.swing.*;
 
-import GUI.DrinkGUI;
+import main.java.GUI.DrinkClient;
+import main.java.GUI.DrinkGUI;
 
 
 public class Main{
@@ -11,7 +14,8 @@ public class Main{
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
 			public void run() {
-			      	new DrinkGUI().setVisible(true);
+			      	//new DrinkGUI().setVisible(true);
+				new DrinkClient();//.setVisible(true);
 			}
 		});
 	}

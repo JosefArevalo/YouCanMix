@@ -1,8 +1,8 @@
-package GUI;
+package main.java.GUI;
 //import SQL.JDBCUtil;
 
-import Drink.Drink;
-import SQL.DrinkManagerDAO;
+import main.java.Drink.Drink;
+import main.java.SQL.DrinkManagerDAO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 public class DrinkGUI extends JFrame{
 	
-	private int num_Drinks = 100;
-	private int currentSize = 0;
+	//private int num_Drinks = 100;
+	//private int currentSize = 0;
 	
-	private DrinkManagerDAO manager; //DATABASE OBJECT ACCESSOR
-	private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
-	private ArrayList<Drink> currentDrinks; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
+	//private DrinkManagerDAO manager; //DATABASE OBJECT ACCESSOR
+	//private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
+	//private ArrayList<Drink> currentDrinks; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
 	
 	
 	private JFrame catalogueFrame = new JFrame(); //VIEW DRINKS FRAME
@@ -35,63 +35,63 @@ public class DrinkGUI extends JFrame{
 	private JFrame searchDrinkFrame = new JFrame(); //SEARCH DRINK FRAME
 	private JFrame rateDrinkFrame = new JFrame(); //RATE DRINK FRAME
 	
-	protected JPanel RatingPanel; //ACTIVE RATING PANEL
-	protected JPanel rate; //RATE PANEL
-	protected JPanel search; //SEARCH PANEL
+	//protected JPanel RatingPanel; //ACTIVE RATING PANEL
+	//protected JPanel rate; //RATE PANEL
+	//protected JPanel search; //SEARCH PANEL
 
-	private String Parameter = "*";
+	//private String Parameter = "*";
 	private boolean success = true;//BOOLEAN FOR IF ADDING TO DATABASE WAS SUCCESSFULL
-	private boolean bk = true;//TRUE GOES BACK TO CATALOGUE AND FALSE GOES BACK TO SEARCH
-	private boolean sr = true;//TRUE GOES TO RATE FRAME AND FALSE GOES TO DRINK TABLE
-	private boolean active = true;//TOGGLES LIST SELECTION LISTENER
-	private int select;//HOLDS THE SELECTION FROM THE TABLE
+	//private boolean bk = true;//TRUE GOES BACK TO CATALOGUE AND FALSE GOES BACK TO SEARCH
+	//private boolean sr = true;//TRUE GOES TO RATE FRAME AND FALSE GOES TO DRINK TABLE
+	//private boolean active = true;//TOGGLES LIST SELECTION LISTENER
+	//private int select;//HOLDS THE SELECTION FROM THE TABLE
 	
-	private String[] currentIngredient = new String[num_Drinks];
-    private String[] currentQuantity = new String[num_Drinks];
+	//private String[] currentIngredient = new String[num_Drinks];
+    //private String[] currentQuantity = new String[num_Drinks];
 	
     //CREATES A DEFAULT TABLE MODEL AND AN JTABLE
-	private DefaultTableModel defaultTableModel = new DefaultTableModel();
-    private JTable drinkTable = new JTable(defaultTableModel);    
+	//private DefaultTableModel defaultTableModel = new DefaultTableModel();
+    //private JTable drinkTable = new JTable(defaultTableModel);    
 	
-	private int x = 1; //ingredient counter
-	protected String FullIngredient = "";//Holds all the ingredients
-	protected String FullQuantity = "";  //quantities
+	//private int x = 1; //ingredient counter
+	//protected String FullIngredient = "";//Holds all the ingredients
+	//protected String FullQuantity = "";  //quantities
 	
 	//text fields to search/ enter info
-    private JTextField findTextField = new JTextField(30);
-    private JTextField textCocktailName = new JTextField(30);
+    //private JTextField findTextField = new JTextField(30);
+    //private JTextField textCocktailName = new JTextField(30);
     
     //TEXT FIELDS FOR DIFFERENT INGREDIENTS/QUANTITIES
-    private JTextField tIngredient = new JTextField(30);
-    private JTextField tQuantity = new JTextField(30);
+    //private JTextField tIngredient = new JTextField(30);
+    //private JTextField tQuantity = new JTextField(30);
 
     
     //CREATE BUTTONS
-    private	JButton Yes = new JButton("Yes");
-    private	JButton No = new JButton("No");
- 	private	JButton Menu = new JButton("Main Menu");
- 	private	JButton Exit = new JButton("Exit");
- 	private	JButton View = new JButton("View Drinks");
- 	private	JButton Search = new JButton("Search For Drinks");
- 	private	JButton Rate = new JButton("Rate Drinks");
- 	private	JButton Create = new JButton("Create a Drink.Drink");
- 	private	JButton findButton = new JButton("Search");
- 	private	JButton Back = new JButton("Back");
- 	private JButton Next = new JButton("Next Drink.Drink");
+    //private	JButton Yes = new JButton("Yes");
+    //private	JButton No = new JButton("No");
+ 	//private	JButton Menu = new JButton("Main Menu");
+ 	//private	JButton Exit = new JButton("Exit");
+ 	//private	JButton View = new JButton("View Drinks");
+ 	//private	JButton Search = new JButton("Search For Drinks");
+ 	//private	JButton Rate = new JButton("Rate Drinks");
+ 	//private	JButton Create = new JButton("Create a Drink");
+ 	//private	JButton findButton = new JButton("Search");
+ 	//private	JButton Back = new JButton("Back");
+ 	//private JButton Next = new JButton("Next Drink.Drink");
 
  	
  	//ADD DRINK BUTTONS
- 	private JButton Enter = new JButton("Enter");
-    private JButton moreIngredients = new JButton("More Ingredients");
+ 	//private JButton Enter = new JButton("Enter");
+    //private JButton moreIngredients = new JButton("More Ingredients");
     
     //IMAGES ADDED TO GUI
-	private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/icon.jpg");    
-	private Image star = Toolkit.getDefaultToolkit().getImage("src/Icons/Star.jpg");    
-	private Image NoStar = Toolkit.getDefaultToolkit().getImage("src/Icons/NoStar.jpg");    
+	//private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/icon.jpg");    
+	//private Image star = Toolkit.getDefaultToolkit().getImage("src/Icons/Star.jpg");    
+	//private Image NoStar = Toolkit.getDefaultToolkit().getImage("src/Icons/NoStar.jpg");    
  	
 	public DrinkGUI() {
-		// displays YouCanMix title on every window
-		super("YouCanMix");
+		/* displays YouCanMix title on every window
+		//super("YouCanMix");
 
 		try {
 			this.manager = new DrinkManagerDAO();
@@ -103,7 +103,7 @@ public class DrinkGUI extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setIconImage(icon);
-		
+	
 		//Sets actions for each button
 		Yes.addActionListener(new ActionListener() {//	WHEN YES BUTTON IS PRESSED
 			@Override
@@ -136,8 +136,7 @@ public class DrinkGUI extends JFrame{
 			public void actionPerformed(ActionEvent ae) {
 				System.exit(0);
 			}
-		});
-	
+		});	
 		Search.addActionListener(new ActionListener() {//	WHEN SEARCH FOR DRINKS BUTTON IS PRESSED
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -159,6 +158,8 @@ public class DrinkGUI extends JFrame{
 				drinkCatalogue();
 			}
 		});	
+		
+		
 		ListSelectionModel click = drinkTable.getSelectionModel();
 		click.addListSelectionListener(new ListSelectionListener() {// WHEN AN ROW IS SELECTED
 			@Override
@@ -222,6 +223,7 @@ public class DrinkGUI extends JFrame{
 				
 			}
 		}); 
+
 		Rate.addActionListener(new ActionListener() {//	WHEN RATE DRINKS BUTTON IS PRESSED
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -229,6 +231,7 @@ public class DrinkGUI extends JFrame{
 				rateDrinks();
 			}
 		});
+		
 		
 		//GOES TO THE NEXT DRINK RATING
 		Next.addActionListener(new ActionListener() {//	WHEN CREATE DRINKS BUTTON IS PRESSED
@@ -246,10 +249,10 @@ public class DrinkGUI extends JFrame{
 					noDrinkError();
 					x = 1;
 					rateDrinks();
-				}*/
+				}
 			}
 		}); 
-		
+	
 		//CREATE DRINKS FUNCTION CALLS
 		Create.addActionListener(new ActionListener() {//	WHEN CREATE DRINKS BUTTON IS PRESSED
 			@Override
@@ -257,6 +260,7 @@ public class DrinkGUI extends JFrame{
 				createDrinks();
 			}
 		}); 
+		
 		moreIngredients.addActionListener(new ActionListener() {//WHEN MORE INGREDIENTS BUTTON IS PRESSED
 	        @Override
 	        public void actionPerformed(ActionEvent event) {
@@ -300,12 +304,12 @@ public class DrinkGUI extends JFrame{
 		        FullIngredient = "";
 		        FullQuantity = "";
 				x = 1;
-				mainMenu();
+				//mainMenu();
 	        }
 	    });
 		
 		//Displays the verify screen to start
-		Verify();
+		//Verify();
 		
 	}
 
@@ -347,7 +351,9 @@ public class DrinkGUI extends JFrame{
         setLocationRelativeTo(null);
         		
 	}
+	*/
 	
+/*	
 	//INTERFACE FOR THE MAIN MENU
 	public void mainMenu() {	
 		
@@ -439,7 +445,8 @@ public class DrinkGUI extends JFrame{
         catalogueFrame.setVisible(true);
         catalogueFrame.validate();
 	}
-	
+*/	
+	/*
 	//INTERFACE THAT DISPLAYS SEARCH BAR AND SEARCH RESULTS
 	public void searchDrinks() { 
 		
@@ -499,6 +506,7 @@ public class DrinkGUI extends JFrame{
         searchDrinkFrame.validate();
 		
 	}
+
 	
 	//interface for user to rate drinks
 	public void rateDrinks() { 
@@ -876,6 +884,7 @@ public class DrinkGUI extends JFrame{
       		
 		
 	}
+
 	
 	//CREATES A PANEL THAT HOLD THE DRINK rate
 	public void ratingGUI(int s) {
@@ -976,7 +985,7 @@ public class DrinkGUI extends JFrame{
 	public void rateAdded() {
 		JFrame rAFrame = new JFrame();
         JOptionPane.showMessageDialog(rAFrame, "Rating Succesfully Added to Database!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
-	}
+	}*/
 	
 	
 }

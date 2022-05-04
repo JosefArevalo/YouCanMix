@@ -1,6 +1,6 @@
-package SQL;
+package main.java.SQL;
 
-import Drink.Drink;
+import main.java.Drink.Drink;
 
 import java.sql.*;
 import java.util.ArrayList;
