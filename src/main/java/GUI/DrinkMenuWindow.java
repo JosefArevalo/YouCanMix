@@ -95,6 +95,9 @@ private DrinkClient DC;
 		case CREATE:
 			DC.setWindow(DC.getCreateDrinkWindow());
 			return;
+		case VIEW:
+			DC.setWindow(DC.getViewDrinkWindow());
+			return;
 		default:
 			break;
 		}	

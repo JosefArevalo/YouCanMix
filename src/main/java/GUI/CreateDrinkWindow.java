@@ -100,7 +100,16 @@ private DrinkClient DC;
 	@Override
 	public void nextWindow() {
 		CreateDrinkFrame.setVisible(false);
-		DC.setWindow(DC.getValidationWindow());	
+		switch(DC.choice) {
+		case MENU:
+			DC.setWindow(DC.getMenuWindow());
+			return;
+		case CREATE:
+			DC.setWindow(DC.getCreateDrinkWindow());
+			return;
+		default:
+			break;
+		}		
 	}
 	
 	@Override

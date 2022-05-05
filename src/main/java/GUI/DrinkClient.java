@@ -33,7 +33,7 @@ import main.java.SQL.DrinkManagerDAO;
 
 
 public class DrinkClient{
-	enum Choice{SEARCH, RATE, CREATE, TABLE, RATE2, MENU};
+	enum Choice{SEARCH, RATE, CREATE, TABLE, VIEW, MENU};
 	Choice choice;
 	
 	protected JPanel RatingPanel; //ACTIVE RATING PANEL
@@ -45,7 +45,7 @@ public class DrinkClient{
     public JTextField textCocktailName = new JTextField(30);
 	
 	public String Parameter = "*";
-	public boolean bk = true;//TRUE GOES BACK TO CATALOGUE AND FALSE GOES BACK TO SEARCH
+	public boolean bk = true;//TRUE GOES BACK TO MENU AND FALSE GOES BACK TO SEARCH
 	public boolean sr = true;//TRUE GOES TO RATE FRAME AND FALSE GOES TO DRINK TABLE
 	private boolean active = true;//TOGGLES LIST SELECTION LISTENER
 	private int select;//HOLDS THE SELECTION FROM THE TABLE
@@ -148,6 +148,7 @@ public class DrinkClient{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				deleteAllRows();
+				bk = true;
 				choice = Choice.MENU;
 				state.nextWindow();
 				//mainMenu();
@@ -223,7 +224,10 @@ public class DrinkClient{
 				if(active) {
 					select = click.getMinSelectionIndex();
 					System.out.println("Selection: " + select);
-					if(select >= 0 && select < 100)state.nextWindow();
+					if(select >= 0 && select < 100) {
+						choice = Choice.VIEW;
+						state.nextWindow();
+					}
 						//viewDrink(select);
 				}
 	        }
@@ -232,6 +236,8 @@ public class DrinkClient{
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				deleteAllRows();
+				if(bk == true)choice = Choice.MENU;
+				else choice = Choice.SEARCH;	
 				state.nextWindow();
 				//searchDrinks();
 				Parameter = "*";
@@ -239,7 +245,7 @@ public class DrinkClient{
 			}
 		});
 		
-		Next.addActionListener(new ActionListener() {//	WHEN CREATE DRINKS BUTTON IS PRESSED
+		Next.addActionListener(new ActionListener() {//	WHEN NEXT DRINK BUTTON IS PRESSED
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				/*
@@ -340,7 +346,7 @@ public class DrinkClient{
 		return CreateDrinkWindow;
 	}
 	
-	public YouCanMixState ViewDrinkWindow() {
+	public YouCanMixState getViewDrinkWindow() {
 		ViewDrinkWindow = new ViewDrinkWindow(this, select);
 		return ViewDrinkWindow;
 	}
