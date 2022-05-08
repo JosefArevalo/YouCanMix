@@ -1,6 +1,6 @@
-package SQL;
+package main.java.SQL;
 
-import Drink.Drink;
+import main.java.Drink.Drink;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class DrinkManagerDAO
                 "Ingredients varchar(100) not null, " +
                 "Quantity varchar(100) not null," +
                 "Rating integer not null, " +
+                "Instructions varchar(300) not null," +
                 "primary key(Drink_Name))";
 
         Statement stmt = this.conn.createStatement();
@@ -34,7 +35,7 @@ public class DrinkManagerDAO
     public void insertDrink(Drink currentDrink) throws SQLException
     {
         //MAKES ENTRY PROMPT
-        String SQL = "insert into drinks values (?,?,?,?);";
+        String SQL = "insert into drinks values (?,?,?,?,?);";
         PreparedStatement stmt = conn.prepareStatement(SQL);
 
         //ENTERS DATA INTO PROPER COLUMN
@@ -42,6 +43,7 @@ public class DrinkManagerDAO
         stmt.setString(2, currentDrink.getIngredients());
         stmt.setString(3, currentDrink.getQuantities());
         stmt.setInt(4, currentDrink.getRating());
+        stmt.setString(5, currentDrink.getInstructions());
 
         //PUSHS/CHECKS THAT DATABASE HAS BEEN UPDATED
         stmt.executeUpdate();
@@ -78,7 +80,7 @@ public class DrinkManagerDAO
 	    	while ( rs.next() ) {
 	    		 Drink d = new Drink(rs.getString("Drink_Name"),
 	    				 rs.getString("Ingredients"), rs.getString("Quantity"),
-	    				 rs.getInt("Rating"));
+	    				 rs.getInt("Rating"), rs.getString("Instructions"));
                  drinks.add(d);
 	    	}
     	}
