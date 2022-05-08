@@ -4,13 +4,15 @@ public class Drink {
     private final String drinkName;
     private final String ingredients;
     private final String quantities;
+    private final String instructions;
     private int rating;
 
-    public Drink(String drinkName, String ingredients, String quantities, int rate) {
+    public Drink(String drinkName, String ingredients, String quantities, int rate, String instructions) {
         this.drinkName = drinkName;
         this.ingredients = ingredients;
         this.quantities = quantities;
         this.rating = rate;
+        this.instructions = instructions;
     }
     
     public String getDrinkName() {
@@ -24,6 +26,9 @@ public class Drink {
     }
     public int getRating() {
     	return this.rating;
+    }
+    public String getInstructions() {
+    	return this.instructions;
     }
     public void setRating(int r) {
     	this.rating = r;

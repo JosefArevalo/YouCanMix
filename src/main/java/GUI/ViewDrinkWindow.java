@@ -8,12 +8,14 @@ import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import main.java.Drink.Drink;
 
 public class ViewDrinkWindow extends YouCanMixState{
 
 private DrinkClient DC;
+public JTextArea Instructions = new JTextArea(10,30);
 	
 	private JFrame displayDrinkFrame = new JFrame(); //DRINK MENU FRAME
 	
@@ -61,31 +63,45 @@ private DrinkClient DC;
             constraints.gridy = DC.x;
             displayCocktail.add(ingredient, constraints); //ADDS LABEL FOR INGREDIENT X
                  
-            constraints.gridx = 1;
+            constraints.gridx = 2;
             constraints.gridy = DC.x;
             displayCocktail.add(quantity, constraints); //ADDS LABEL FOR QUANTITIY X
             
       	    DC.x++;
         }
         
-        DC.ratingGUI(s);//GETS THE RATING OF THE DRINK 
-        
+        Instructions.setLineWrap(true);
+        Instructions.setWrapStyleWord(true);
+        Instructions.setEditable(false);
+        Instructions.setText(drink.getInstructions());
+        JLabel instructions = new JLabel("Instructions: ");
         
         constraints.gridx = 0;
         constraints.gridy = DC.x;
+        displayCocktail.add(instructions, constraints); //ADDS LABEL TO PANEL
+        
+        constraints.gridx = 1;
+        constraints.gridy = DC.x;
+        displayCocktail.add(Instructions, constraints); //ADDS LABEL TO PANEL
+        
+        DC.ratingGUI(s);//GETS THE RATING OF THE DRINK 
+        
+        
+        constraints.gridx = 1;
+        constraints.gridy = DC.x + 1;
         constraints.gridwidth = 10;
         displayCocktail.add(DC.rate, constraints);
 
         
         //add menu and exit button to panel
         constraints.gridx = 0;
-        constraints.gridy = DC.x + 1;
+        constraints.gridy = DC.x + 2;
         constraints.gridwidth = 4;
         constraints.anchor = GridBagConstraints.WEST;
         displayCocktail.add(DC.Back, constraints);
         
         constraints.gridx = 0;
-        constraints.gridy = DC.x + 1 ;
+        constraints.gridy = DC.x + 2;
         constraints.gridwidth = 4;
         constraints.anchor = GridBagConstraints.EAST;
         displayCocktail.add(DC.Exit, constraints);

@@ -5,7 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Menu;
+//import java.awt.Menu;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -60,7 +61,8 @@ public class DrinkClient{
     //TEXT FIELDS FOR DIFFERENT INGREDIENTS/QUANTITIES
     public JTextField tIngredient = new JTextField(30);
     public JTextField tQuantity = new JTextField(30);
-	
+    public JTextArea tInstructions = new JTextArea(10,30);
+    
 	
 	private DrinkManagerDAO manager; //DATABASE OBJECT ACCESSOR
 	private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
@@ -284,10 +286,11 @@ public class DrinkClient{
 	        	//PUTS ALL INGREDIENTS/QUANTITIES EACH INTO ONE STRING
 	        	FullIngredient += tIngredient.getText(); 
 	        	FullQuantity += tQuantity.getText();
+	        	System.out.print(tInstructions);
 		        try {
 		        	//MAKES NEW DRINK AND PUTS IT INTO CURRENT DRINK
 					currentDrink = new Drink(textCocktailName.getText(), FullIngredient, 
-							FullQuantity, 5 );
+							FullQuantity, 5, tInstructions.getText() );
 					
 					//CONNECTS TO THE DATABASE AND INSERTS NEW DRINK INTO IT
 					//RETURNS IF IT WAS ADDED OR NOT

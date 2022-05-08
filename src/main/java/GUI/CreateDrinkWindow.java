@@ -38,6 +38,9 @@ private DrinkClient DC;
 	    JLabel ingredient = new JLabel("Enter Ingredient " + DC.x + ": ");
 	    JLabel quantity = new JLabel("Enter Ingredient " + DC.x + "\'s Quantity: ");
 	    
+	    //Display prompt for cocktail name
+	    JLabel instructions = new JLabel("Cocktail Instructions:");
+	    
 	    //initial components to the panel
         constraints.gridx = 0;
         constraints.gridy = 0;     
@@ -63,29 +66,40 @@ private DrinkClient DC;
         constraints.gridx = 2;
         creating.add(DC.moreIngredients, constraints); //BUTTON TO ADD MORE INGREDIENTS
         
-        //PUTS THE ENTER BUTTON IN THE MIDDLE OF THE PANEL
         constraints.gridx = 0;
         constraints.gridy = 3;
+        creating.add(instructions, constraints);
+        
+        DC.tInstructions.setLineWrap(true);
+        DC.tInstructions.setWrapStyleWord(true);
+
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        creating.add(DC.tInstructions, constraints);
+        
+        //PUTS THE ENTER BUTTON IN THE MIDDLE OF THE PANEL
+        constraints.gridx = 2;
+        constraints.gridy = 3;
         constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
+        //constraints.anchor = GridBagConstraints.CENTER;
         creating.add(DC.Enter, constraints);
         
         //ADDS MENU AND EXIT BUTTON TO THE BOTTOM OF THE PANEL
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 5;
         constraints.gridwidth = 4;
         constraints.anchor = GridBagConstraints.WEST;
         creating.add(DC.Menu, constraints);
         
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 5;
         constraints.gridwidth = 4;
         constraints.anchor = GridBagConstraints.EAST;
         creating.add(DC.Exit, constraints);
          
         // set border for the panel
         creating.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Create a Drink.Drink"));
+                BorderFactory.createEtchedBorder(), "Create a Drink"));
          
         // add the panel to this frame
         CreateDrinkFrame.add(creating);
