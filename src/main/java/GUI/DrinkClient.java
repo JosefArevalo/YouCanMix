@@ -29,6 +29,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import main.java.Drink.Drink;
+import main.java.Drink.drinkBuilder;
 import main.java.SQL.DrinkManagerDAO;
 
 
@@ -36,6 +37,8 @@ import main.java.SQL.DrinkManagerDAO;
 public class DrinkClient{
 	enum Choice{SEARCH, RATE, CREATE, TABLE, VIEW, MENU};
 	Choice choice;
+	
+	public drinkBuilder builder;
 	
 	protected JPanel RatingPanel; //ACTIVE RATING PANEL
 	protected JPanel rate; //RATE PANEL
@@ -268,8 +271,16 @@ public class DrinkClient{
 	        @Override
 	        public void actionPerformed(ActionEvent event) {
 	    		x++;
-	    		FullIngredient += tIngredient.getText() + ", ";
-	    		FullQuantity += tQuantity.getText() + ", ";
+	    		//FullIngredient += tIngredient.getText() + ", ";
+	    		//FullQuantity += tQuantity.getText() + ", ";
+	    		if(builder == null) {
+	    			builder = new drinkBuilder(textCocktailName.getText(), tIngredient.getText(),
+	    				tQuantity.getText());
+	    		}
+	    		else {
+	    			builder.withIngredient(tIngredient.getText())
+	    			.withQuantity(tQuantity.getText());
+	    		}
 	    		tIngredient.setText(null);//clears out ingredient and quantity text box
 		        tQuantity.setText(null);
 	    		if(x < 10) {//createDrinks();//LIMITS THE AMOUNT OF INGREDIENTS THAT CAN BE ADDED
@@ -284,13 +295,19 @@ public class DrinkClient{
 	        public void actionPerformed(ActionEvent event) {
 	        	
 	        	//PUTS ALL INGREDIENTS/QUANTITIES EACH INTO ONE STRING
-	        	FullIngredient += tIngredient.getText(); 
-	        	FullQuantity += tQuantity.getText();
-	        	System.out.print(tInstructions);
+	        	//FullIngredient += tIngredient.getText(); 
+	        	//FullQuantity += tQuantity.getText();
+	        	//System.out.print(tInstructions);
 		        try {
 		        	//MAKES NEW DRINK AND PUTS IT INTO CURRENT DRINK
-					currentDrink = new Drink(textCocktailName.getText(), FullIngredient, 
-							FullQuantity, 5, tInstructions.getText() );
+		        	currentDrink = builder.withIngredient(tIngredient.getText())
+		        			.withQuantity(tQuantity.getText())
+		        			.withInstruction(tInstructions.getText())
+		        			//textCocktailName.getText(), FullIngredient,
+		        			//FullQuantity, tInstructions.getText())
+		        			.build();
+					//currentDrink = new Drink(textCocktailName.getText(), FullIngredient, 
+					//		FullQuantity, 5, tInstructions.getText() );
 					
 					//CONNECTS TO THE DATABASE AND INSERTS NEW DRINK INTO IT
 					//RETURNS IF IT WAS ADDED OR NOT
@@ -306,10 +323,12 @@ public class DrinkClient{
 		        tIngredient.setText(null);
 		        tQuantity.setText(null);
 		        textCocktailName.setText(null);
+		        tInstructions.setText(null);
 		        
 		        //clear out FullIngredient, FullQuantity and resets x counter
-		        FullIngredient = "";
-		        FullQuantity = "";
+		        //FullIngredient = "";
+		        //FullQuantity = "";
+		        builder = null;
 				x = 1;
 				//mainMenu();
 	        }
@@ -599,13 +618,13 @@ public class DrinkClient{
 	//ERROR MESSAGE IF DRINK WAS NOT ADDED TO DATABASE
 	public void drinkNotAdded() {
 		JFrame dNAFrame = new JFrame();
-        JOptionPane.showMessageDialog(dNAFrame, "Drink.Drink Not Added!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(dNAFrame, "Drink Not Added!", "ERROR", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	//SUCCESS MESSAGE IF DRINK WAS ADDED TO DATABASE
 	public void drinkAdded() {
 		JFrame dAFrame = new JFrame();
-        JOptionPane.showMessageDialog(dAFrame, "Drink.Drink Succesfully Added to Database!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(dAFrame, "Drink Succesfully Added to Database!", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	//ERROR MESSAGE IF RATING WAS NOT ADDED TO DATABASE
