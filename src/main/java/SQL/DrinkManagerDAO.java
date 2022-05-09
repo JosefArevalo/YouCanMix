@@ -1,6 +1,7 @@
 package main.java.SQL;
 
 import main.java.Drink.Drink;
+import main.java.Drink.drinkBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -78,9 +79,11 @@ public class DrinkManagerDAO
             }
 
 	    	while ( rs.next() ) {
-	    		 Drink d = new Drink(rs.getString("Drink_Name"),
-	    				 rs.getString("Ingredients"), rs.getString("Quantity"),
-	    				 rs.getInt("Rating"), rs.getString("Instructions"));
+	    		 Drink d = new drinkBuilder(rs.getString("Drink_Name"),
+	    				 rs.getString("Ingredients"), rs.getString("Quantity"))
+	    				 .withInstruction(rs.getString("Instructions"))
+	    				 .withRating(rs.getInt("Rating"))
+	    				 .build();
                  drinks.add(d);
 	    	}
     	}
