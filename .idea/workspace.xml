@@ -5,8 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67995133-4cce-4b92-8ab7-23bb9dc018fe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_postgresql_postgresql_42_3_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_32_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/AbstractSQLDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/DatabaseFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/IDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/IDatabaseFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/MySQLDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/PostgreSQLDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/SQLiteDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YouCanMix.iml" beforeDir="false" afterPath="$PROJECT_DIR$/YouCanMix.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/DrinkManagerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/DrinkManagerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CFG/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CFG/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CFG/ConfigSingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CFG/ConfigSingleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Drink/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Drink/Drink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Drink/drinkBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Drink/DrinkBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/CreateDrinkWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/CreateDrinkWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/DrinkClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/DrinkClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/DrinkGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/DrinkMenuWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/DrinkMenuWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/RateDrinkWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/RateDrinkWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/SearchDrinkWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/SearchDrinkWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ValidationWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ValidationWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ViewDrinkWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ViewDrinkWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/YouCanMixState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/YouCanMixState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/DrinkManagerDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/example.config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example.config.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +45,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -23,8 +53,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="inwjjny1" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="26OLcBYPEIuRFe8ZS1aqULhHNfY" />
   <component name="ProjectViewState">
@@ -36,10 +77,28 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../musicbot-rs" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/resources" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="SQL" />
+      <recent name="CFG" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\headline\Desktop\YouCanMix\src\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\headline\Desktop\YouCanMix" />
+      <recent name="C:\Users\Micha\Desktop\YouCanMix\src\resources" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
