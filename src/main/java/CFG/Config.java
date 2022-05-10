@@ -1,5 +1,6 @@
 package CFG;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,12 +17,7 @@ public class Config {
 
     public Config() throws IOException {
         Properties props = new Properties();
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("config.properties");
-
-        if (is == null) {
-            throw new FileNotFoundException("Unable to find config.properties");
-        }
-
+        InputStream is = new FileInputStream("config.properties");
         props.load(is);
 
         this.sqlMethod = props.getProperty("sql_method");

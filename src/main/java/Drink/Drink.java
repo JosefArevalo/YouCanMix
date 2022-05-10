@@ -1,4 +1,4 @@
-package main.java.Drink;
+package Drink;
 
 public class Drink {
     private final String drinkName;
@@ -7,7 +7,7 @@ public class Drink {
     private final String instructions;
     private int rating;
     
-    public Drink(drinkBuilder builder) {
+    public Drink(DrinkBuilder builder) {
     	this.drinkName = builder.getName();
     	this.ingredients = builder.getIngredients();
     	this.quantities = builder.getQuantities();

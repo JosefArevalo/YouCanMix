@@ -1,4 +1,4 @@
-package main.java.GUI;
+package GUI;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -12,12 +12,12 @@ import javax.swing.JScrollPane;
 
 public class DrinkMenuWindow extends YouCanMixState{
 
-private DrinkClient DC;
-	
-	private JFrame DrinkMenuFrame = new JFrame(); //DRINK MENU FRAME
+	private final DrinkClient DC;
+	private final JFrame DrinkMenuFrame;
 	
 	public DrinkMenuWindow(DrinkClient client) {
 		this.DC = client;
+		this.DrinkMenuFrame = new JFrame(); //DRINK MENU FRAME
 		mainMenu();
 	}
 	
@@ -38,14 +38,13 @@ private DrinkClient DC;
         menu.add(new JScrollPane(DC.drinkTable));//ADDS THE DRINK TABLE TO THE PANEL
 			
 		GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
-         
+
         // add components to the panel
         //constraints.gridx = 0;
-        //constraints.gridy = 0;     
+        //constraints.gridy = 0;
         //menu.add(DC.View, constraints);
- 
+
         constraints.gridx = 0;
         constraints.gridy = 1; 
         constraints.anchor = GridBagConstraints.WEST;

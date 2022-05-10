@@ -1,14 +1,14 @@
-package main.java.GUI;
+package GUI;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-//import java.awt.Menu;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,17 +28,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import main.java.Drink.Drink;
-import main.java.Drink.drinkBuilder;
-import main.java.SQL.DrinkManagerDAO;
-
+import CFG.Config;
+import CFG.ConfigSingleton;
+import Drink.Drink;
+import Drink.DrinkBuilder;
+import SQL.DatabaseFactory;
+import SQL.IDatabase;
 
 
 public class DrinkClient{
 	enum Choice{SEARCH, RATE, CREATE, TABLE, VIEW, MENU};
 	Choice choice;
 	
-	public drinkBuilder builder;
+	public DrinkBuilder builder;
 	
 	protected JPanel RatingPanel; //ACTIVE RATING PANEL
 	protected JPanel rate; //RATE PANEL
@@ -67,7 +69,7 @@ public class DrinkClient{
     public JTextArea tInstructions = new JTextArea(10,30);
     
 	
-	private DrinkManagerDAO manager; //DATABASE OBJECT ACCESSOR
+	private IDatabase database; //DATABASE OBJECT ACCESSOR
 	private Drink currentDrink; //HOLDS THE CURRENT DRINK WE ARE WORKING WITH
 	public ArrayList<Drink> currentDrinks; //HOLDS THE CURRENT DRINKS WE ARE WORKING WITH
 	public Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/icon.jpg");
@@ -108,16 +110,23 @@ public class DrinkClient{
 	public DrinkClient() {
 		
 		ValidationWindow = new ValidationWindow(this);
-		
+
 		state = ValidationWindow;
 		
 
 		try {
-			this.manager = new DrinkManagerDAO();
+			Config cfg = ConfigSingleton.getConfig();
+			DatabaseFactory dbFactory = new DatabaseFactory();
+			this.database = dbFactory.createDatabase(cfg.sqlMethod);
+			if (this.database == null) {
+				throw new RuntimeException("Invalid SQL database supplied in config.properties!");
+			}
+			this.database.connect();
 		}
-		catch (SQLException e) {
+		catch (SQLException | IOException e) {
 			e.printStackTrace();
-		}	
+			System.exit(1);
+		}
 	
 
 		Yes.addActionListener(new ActionListener() {//	WHEN YES BUTTON IS PRESSED
@@ -199,7 +208,7 @@ public class DrinkClient{
 				deleteAllRows();
 				Parameter = findTextField.getText();
 				try {
-					currentDrinks = manager.getDrinks(Parameter);
+					currentDrinks = database.getDrinks(Parameter);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -274,7 +283,7 @@ public class DrinkClient{
 	    		//FullIngredient += tIngredient.getText() + ", ";
 	    		//FullQuantity += tQuantity.getText() + ", ";
 	    		if(builder == null) {
-	    			builder = new drinkBuilder(textCocktailName.getText(), tIngredient.getText(),
+	    			builder = new DrinkBuilder(textCocktailName.getText(), tIngredient.getText(),
 	    				tQuantity.getText());
 	    		}
 	    		else {
@@ -300,18 +309,26 @@ public class DrinkClient{
 	        	//System.out.print(tInstructions);
 		        try {
 		        	//MAKES NEW DRINK AND PUTS IT INTO CURRENT DRINK
-		        	currentDrink = builder.withIngredient(tIngredient.getText())
-		        			.withQuantity(tQuantity.getText())
-		        			.withInstruction(tInstructions.getText())
+					if (builder == null) {
+						builder = new DrinkBuilder(textCocktailName.getText(), tIngredient.getText(),
+								tQuantity.getText());
+						currentDrink = builder.build();
+					}
+					else {
+						currentDrink = builder.withIngredient(tIngredient.getText())
+								.withQuantity(tQuantity.getText())
+								.withInstruction(tInstructions.getText())
+								.build();
+					}
+
 		        			//textCocktailName.getText(), FullIngredient,
 		        			//FullQuantity, tInstructions.getText())
-		        			.build();
-					//currentDrink = new Drink(textCocktailName.getText(), FullIngredient, 
+					//currentDrink = new Drink(textCocktailName.getText(), FullIngredient,
 					//		FullQuantity, 5, tInstructions.getText() );
 					
 					//CONNECTS TO THE DATABASE AND INSERTS NEW DRINK INTO IT
 					//RETURNS IF IT WAS ADDED OR NOT
-					manager.insertDrink(currentDrink);
+					database.addDrink(currentDrink);
 					drinkAdded();
 				} catch (SQLException e) {//CATCHES ERROR
 					drinkNotAdded();
@@ -344,7 +361,7 @@ public class DrinkClient{
 	
 	public YouCanMixState getMenuWindow() {
 		try {
-	    	currentDrinks = manager.getDrinks(null);
+	    	currentDrinks = database.getDrinks(null);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -505,7 +522,7 @@ public class DrinkClient{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-					manager.insertRate(currentDrinks.get(x-1), 1);
+					database.addRating(currentDrinks.get(x-1), 1);
 					rateAdded();
 				} catch (SQLException e) {
 					rateNotAdded();
@@ -525,7 +542,7 @@ public class DrinkClient{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			manager.insertRate(currentDrinks.get(x-1), 2);
+        			database.addRating(currentDrinks.get(x-1), 2);
 					rateAdded();
 				} catch (SQLException e) {
 					rateNotAdded();
@@ -545,7 +562,7 @@ public class DrinkClient{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			manager.insertRate(currentDrinks.get(x-1), 3);
+        			database.addRating(currentDrinks.get(x-1), 3);
 					rateAdded();
 				} catch (SQLException e) {
 					rateNotAdded();
@@ -565,7 +582,7 @@ public class DrinkClient{
         	@Override
         	public void actionPerformed(ActionEvent event) {
 				try {
-					manager.insertRate(currentDrinks.get(x - 1), 4);
+					database.addRating(currentDrinks.get(x - 1), 4);
 					rateAdded();
 				} catch (SQLException e) {
 					rateNotAdded();
@@ -584,7 +601,7 @@ public class DrinkClient{
         	@Override
         	public void actionPerformed(ActionEvent event) {
         		try {
-        			manager.insertRate(currentDrinks.get(x-1), 5);
+        			database.addRating(currentDrinks.get(x-1), 5);
 					rateAdded();
 				} catch (SQLException e) {
 					rateNotAdded();

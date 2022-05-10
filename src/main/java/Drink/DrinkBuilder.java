@@ -1,34 +1,34 @@
-package main.java.Drink;
+package Drink;
 
-public class drinkBuilder {
+public class DrinkBuilder {
 	private final String name;
 	private String ingredients;
     private String quantities;
     private String instructions;
     private int rating;
     
-    public drinkBuilder(String name, String ingredient, String quantity) {
+    public DrinkBuilder(String name, String ingredient, String quantity) {
     	if (name == null)throw new IllegalArgumentException("Name can not be null");
     	this.name = name;
     	this.ingredients = ingredient;
     	this.quantities = quantity;
-    	//this.instructions = instruction;
+    	this.instructions = "";
     	this.rating = 5;
     }
     
-    public drinkBuilder withIngredient(String ingredient) {
+    public DrinkBuilder withIngredient(String ingredient) {
     	this.ingredients += ", " + ingredient;
     	return this;
     }
-    public drinkBuilder withQuantity(String quantity) {
+    public DrinkBuilder withQuantity(String quantity) {
     	this.quantities += ", " + quantity;
     	return this;
     }
-    public drinkBuilder withInstruction(String instruction) {
+    public DrinkBuilder withInstruction(String instruction) {
     	this.instructions = instruction;
     	return this;
     }
-    public drinkBuilder withRating(int rating) {
+    public DrinkBuilder withRating(int rating) {
     	this.rating = rating;
     	return this;
     }

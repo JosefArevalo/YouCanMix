@@ -1,4 +1,4 @@
 /bin/
 # ignore class dir
 /target/*
-src/resources/config.properties
+config.properties

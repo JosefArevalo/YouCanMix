@@ -1,4 +1,6 @@
-package main.java.GUI;
+package GUI;
+
+import Drink.Drink;
 
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -9,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import main.java.Drink.Drink;
 
 public class ViewDrinkWindow extends YouCanMixState{
 

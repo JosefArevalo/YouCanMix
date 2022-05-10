@@ -5,11 +5,11 @@ import java.io.IOException;
 public class ConfigSingleton {
     private static Config cfg;
 
-    public Config getConfig() throws IOException {
-        if (ConfigSingleton.cfg != null) {
-            return ConfigSingleton.cfg;
+    public static Config getConfig() throws IOException {
+        if (cfg == null) {
+            cfg = new Config();
         }
-        ConfigSingleton.cfg = new Config();
-        return ConfigSingleton.cfg;
+
+        return cfg;
     }
 }
