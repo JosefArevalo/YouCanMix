@@ -262,17 +262,17 @@ public class DrinkClient{
 		Next.addActionListener(new ActionListener() {//	WHEN NEXT DRINK BUTTON IS PRESSED
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				/*
+
 				x++;
-				if (x <= manager.getCurrentSize()) {
+				if (x <= currentDrinks.size()) {
 					ratingSelection();
-					rateDrinks();
+					state.nextWindow();
 				}
 				else {
 					noDrinkError();
 					x = 1;
-					rateDrinks();
-				}*/
+					state.nextWindow();
+				}
 			}
 		}); 
 		
@@ -347,6 +347,7 @@ public class DrinkClient{
 		        //FullQuantity = "";
 		        builder = null;
 				x = 1;
+				state.nextWindow();
 				//mainMenu();
 	        }
 	    });

@@ -23,6 +23,7 @@ public class ValidationWindow extends YouCanMixState{
 	//INTERFACE TO VERIFY USERS AGE
 	public void Verify() {
 		ValidationFrame.setTitle("YouCanMix");
+        ValidationFrame.setIconImage(DC.icon);
 		
 		JPanel verify = new JPanel(new GridBagLayout());	//panel to display menu
 		

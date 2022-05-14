@@ -24,6 +24,8 @@ private DrinkClient DC;
 	public void createDrinks() { 
 		
 		//getContentPane().removeAll();//clears frame
+        CreateDrinkFrame.setTitle("YouCanMix");
+        CreateDrinkFrame.setIconImage(DC.icon);
 
 		//Create Drinks		
 		JPanel creating = new JPanel(new GridBagLayout());//panel to prompt user entry		

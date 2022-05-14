@@ -2,3 +2,4 @@
 # ignore class dir
 /target/*
 config.properties
+/target/
